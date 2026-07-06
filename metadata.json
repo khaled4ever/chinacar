@@ -1,0 +1,6 @@
+{
+  "name": "مركز الرشود لصيانة السيارات الصينية",
+  "description": "مركز مستقل متكامل لصيانة السيارات الصينية - ميكانيكا، كهرباء، فحص كمبيوتر، سمكرة ودهان بالرياض",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
