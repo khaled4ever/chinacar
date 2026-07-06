@@ -2,7 +2,7 @@ import { Phone, MessageCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export default function FloatingButtons() {
-  const phoneNumber = "+966500000000"; // Generic placeholder number
+  const phoneNumber = "+966561241984"; // Actual phone number
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent("مرحباً، أود حجز موعد لصيانة سيارتي الصينية.")}`;
   const telUrl = `tel:${phoneNumber}`;
 

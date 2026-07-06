@@ -367,7 +367,7 @@ export default function App() {
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-white">أرقام التواصل وحجز السطحة:</h4>
-                    <p className="text-xs text-slate-400 mt-1">هاتف المركز: <span className="font-mono text-white font-bold">0500000000</span> (اتصال أو واتساب)</p>
+                    <p className="text-xs text-slate-400 mt-1">هاتف المركز: <span className="font-mono text-white font-bold">0561241984</span> (اتصال أو واتساب)</p>
                   </div>
                 </div>
               </div>
@@ -447,7 +447,7 @@ export default function App() {
 
           {/* Copyrights */}
           <div className="md:col-span-3 text-right space-y-1">
-            <p className="text-slate-400 font-bold">اتصل بنا: 0500000000</p>
+            <p className="text-slate-400 font-bold">اتصل بنا: 0561241984</p>
             <p className="text-[11px] text-slate-600">© {new Date().getFullYear()} مركز الرشود. جميع الحقوق محفوظة.</p>
             <p className="text-[10px] text-slate-600">مصمم بجودة واحترافية متناهية لخدمتكم.</p>
           </div>
