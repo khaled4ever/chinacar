@@ -1,4 +1,5 @@
-import { Cpu, Zap, Settings, Paintbrush, Clock, ShieldCheck, HelpCircle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Cpu, Zap, Settings, Paintbrush, Clock, ShieldCheck, HelpCircle, Compass, Link, Check } from 'lucide-react';
 import { motion } from 'motion/react';
 import { WorkshopService } from '../types';
 
@@ -7,6 +8,8 @@ interface ServicesSectionProps {
 }
 
 export default function ServicesSection({ onSelectService }: ServicesSectionProps) {
+  const [copiedServiceId, setCopiedServiceId] = useState<string | null>(null);
+
   const services: WorkshopService[] = [
     {
       id: 'computer',
@@ -80,6 +83,66 @@ export default function ServicesSection({ onSelectService }: ServicesSectionProp
     }
   };
 
+  const getSmallIcon = (iconName: string) => {
+    switch (iconName) {
+      case 'Cpu': return <Cpu className="w-4 h-4 text-red-500" />;
+      case 'Zap': return <Zap className="w-4 h-4 text-yellow-500" />;
+      case 'Settings': return <Settings className="w-4 h-4 text-blue-500" />;
+      case 'Paintbrush': return <Paintbrush className="w-4 h-4 text-purple-500" />;
+      default: return <Settings className="w-4 h-4 text-red-500" />;
+    }
+  };
+
+  const scrollToService = (id: string) => {
+    const element = document.getElementById(`service-card-${id}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      
+      // Update hash in URL silently
+      if (window.location.hash !== `#service-${id}`) {
+        window.history.pushState(null, '', `#service-${id}`);
+      }
+
+      // Temporary highlight effect
+      element.classList.add('ring-2', 'ring-red-500/50', 'border-red-500/50', 'shadow-[0_0_20px_rgba(239,68,68,0.2)]');
+      setTimeout(() => {
+        element.classList.remove('ring-2', 'ring-red-500/50', 'border-red-500/50', 'shadow-[0_0_20px_rgba(239,68,68,0.2)]');
+      }, 2000);
+    }
+  };
+
+  const handleCopyLink = (serviceId: string) => {
+    const link = `${window.location.origin}${window.location.pathname}#service-${serviceId}`;
+    navigator.clipboard.writeText(link).then(() => {
+      setCopiedServiceId(serviceId);
+      setTimeout(() => {
+        setCopiedServiceId(null);
+      }, 2000);
+    }).catch(err => {
+      console.error('Failed to copy link: ', err);
+    });
+  };
+
+  useEffect(() => {
+    const checkHash = () => {
+      const hash = window.location.hash;
+      if (hash.startsWith('#service-')) {
+        const id = hash.replace('#service-', '');
+        setTimeout(() => {
+          scrollToService(id);
+        }, 600);
+      }
+    };
+
+    // Run on mount
+    checkHash();
+
+    window.addEventListener('hashchange', checkHash);
+    return () => {
+      window.removeEventListener('hashchange', checkHash);
+    };
+  }, []);
+
   return (
     <section id="services" className="py-20 bg-slate-950 border-t border-slate-900">
       <div className="max-w-7xl mx-auto px-6">
@@ -112,6 +175,32 @@ export default function ServicesSection({ onSelectService }: ServicesSectionProp
           </motion.p>
         </div>
 
+        {/* Quick Navigation Links */}
+        <motion.div 
+          className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12 bg-slate-900/30 border border-slate-900/80 p-4 rounded-2xl max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+        >
+          <span className="text-sm font-bold text-slate-400 shrink-0 flex items-center gap-1.5">
+            <Compass className="w-4 h-4 text-red-500 animate-spin-slow" />
+            انتقل سريعاً إلى القسم:
+          </span>
+          <div className="flex flex-wrap justify-center gap-2.5">
+            {services.map((service) => (
+              <button
+                key={service.id}
+                onClick={() => scrollToService(service.id)}
+                className="flex items-center gap-2 px-4 py-2 bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 hover:border-red-500/40 text-slate-300 hover:text-white rounded-xl text-sm transition-all duration-300 cursor-pointer shadow-sm hover:shadow-red-500/5 hover:-translate-y-0.5 active:translate-y-0"
+              >
+                {getSmallIcon(service.icon)}
+                <span className="font-semibold">{service.title}</span>
+              </button>
+            ))}
+          </div>
+        </motion.div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {services.map((service, index) => (
             <motion.div
@@ -143,9 +232,28 @@ export default function ServicesSection({ onSelectService }: ServicesSectionProp
 
               {/* Service Details Section */}
               <div className="flex flex-col flex-grow">
-                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-red-500 transition-colors duration-300">
-                  {service.title}
-                </h3>
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-red-500 transition-colors duration-300 leading-snug">
+                    {service.title}
+                  </h3>
+                  <button
+                    onClick={() => handleCopyLink(service.id)}
+                    title="نسخ رابط الخدمة المباشر"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-950/60 hover:bg-slate-900 border border-slate-800/80 hover:border-red-500/40 text-slate-400 hover:text-white rounded-xl text-xs transition-all duration-300 cursor-pointer shrink-0 shadow-sm"
+                  >
+                    {copiedServiceId === service.id ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-green-500" />
+                        <span className="text-[10px] font-bold text-green-400">تم النسخ</span>
+                      </>
+                    ) : (
+                      <>
+                        <Link className="w-3.5 h-3.5" />
+                        <span className="text-[10px] font-bold">نسخ الرابط</span>
+                      </>
+                    )}
+                  </button>
+                </div>
                 <p className="text-slate-400 mt-2 text-sm leading-relaxed">
                   {service.description}
                 </p>

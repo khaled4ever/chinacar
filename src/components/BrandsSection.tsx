@@ -9,7 +9,7 @@ export default function BrandsSection() {
       id: 'changan',
       name: 'شانجان',
       englishName: 'Changan',
-      logo: '🇨🇳 CH',
+      logo: 'https://1000logos.net/wp-content/uploads/2021/03/changan-logo.png',
       description: 'أكبر مصنعي السيارات الصينية الذكية. نتميز ببرمجة وتعديل أنظمة راداراتها والتحكم بقير الـ Aisin المعتمد لديهم.',
       commonModels: ['UNI-K', 'UNI-T', 'CS95', 'CS75 Plus', 'Eado Plus']
     },
@@ -17,7 +17,7 @@ export default function BrandsSection() {
       id: 'geely',
       name: 'جيلي',
       englishName: 'Geely',
-      logo: '🇨🇳 GE',
+      logo: 'https://1000logos.net/wp-content/uploads/2020/04/Geely-Logo-2014.png',
       description: 'شريك فولفو وصانع سيارة توجيلا الرياضية. نمتلك الأكواد البرمجية الأصلية لفحص وصيانة محركات 3 سلندرات تيربو والـ DCT الهجين.',
       commonModels: ['Tugella', 'Monjaro', 'Coolray', 'Emgrand', 'Okavango']
     },
@@ -25,7 +25,7 @@ export default function BrandsSection() {
       id: 'haval',
       name: 'هافال',
       englishName: 'Haval',
-      logo: '🇨🇳 HA',
+      logo: 'https://1000logos.net/wp-content/uploads/2020/10/Haval-Logo-2013.png',
       description: 'المتخصصة في سيارات SUV والدفع الرباعي من مجموعة جريت وول. نوفر فحصاً مخصصاً لأنظمة الدبل، الدفع الذكي، وحساسات التوجيه.',
       commonModels: ['H6', 'Dargo', 'Jolion', 'H9']
     },
@@ -33,7 +33,7 @@ export default function BrandsSection() {
       id: 'chery',
       name: 'شيري',
       englishName: 'Chery',
-      logo: '🇨🇳 CY',
+      logo: 'https://1000logos.net/wp-content/uploads/2020/04/Chery-Logo.png',
       description: 'رائدة سيارات التيجو وتكنولوجيا محركات الأكتيكو. متخصصون في برمجة قير الـ CVT وإعادة تهيئة حساسات المناخ والمحرك.',
       commonModels: ['Tiggo 8 Pro', 'Tiggo 7 Pro', 'Arrizo 6 Pro', 'Tiggo 4']
     },
@@ -41,7 +41,7 @@ export default function BrandsSection() {
       id: 'byd',
       name: 'بي واي دي',
       englishName: 'BYD',
-      logo: '🇨🇳 BYD',
+      logo: 'https://1000logos.net/wp-content/uploads/2020/07/BYD-Logo.png',
       description: 'عملاق السيارات الهجينة والكهربائية بالكامل. نوفر فحص خلايا بطاريات بليد (Blade Battery) والتحكم بالمحركات الكهربائية المتطورة.',
       commonModels: ['Han EV', 'Atto 3', 'Song Plus', 'Qin Plus']
     },
@@ -49,7 +49,7 @@ export default function BrandsSection() {
       id: 'mg',
       name: 'إم جي',
       englishName: 'MG',
-      logo: '🇨🇳 MG',
+      logo: 'https://1000logos.net/wp-content/uploads/2021/10/MG-Logo-2010.png',
       description: 'السيارات البريطانية الأصل بإدارة صينية متطورة (SAIC). نتميز بإصلاح مشاكل التيربو الساخن والبرمجة الكاملة لكمبيوتر الماكينة.',
       commonModels: ['MG 6', 'MG RX8', 'MG HS', 'MG ZS', 'MG GT']
     },
@@ -57,7 +57,7 @@ export default function BrandsSection() {
       id: 'jetour',
       name: 'جيتور',
       englishName: 'Jetour',
-      logo: '🇨🇳 JT',
+      logo: 'https://1000logos.net/wp-content/uploads/2023/12/Jetour-Emblem.png',
       description: 'الفرع الفاخر من شيري المصمم للرحلات العائلية والرفاهية. متخصصون في صيانة تعليقها الهوائي والأنظمة الترفيهية الفخمة.',
       commonModels: ['Dashing', 'X70 Plus', 'X90 Plus', 'T2']
     },
@@ -65,7 +65,7 @@ export default function BrandsSection() {
       id: 'exeed',
       name: 'إكسيد',
       englishName: 'Exeed',
-      logo: '🇨🇳 EX',
+      logo: 'https://1000logos.net/wp-content/uploads/2023/12/Exeed-Logo.jpg',
       description: 'البراند الرياضي الفخم فائق الأداء والذكاء. نوفر برمجة أنظمة القيادة الذاتية الفائقة (ADAS) وصيانة قير الـ 7DCT المتطور.',
       commonModels: ['RX', 'VX', 'TXL', 'LX']
     }
@@ -109,7 +109,18 @@ export default function BrandsSection() {
                 }`}
                 id={`brand-tab-${brand.id}`}
               >
-                <span className="text-2xl">{brand.logo}</span>
+                {brand.logo.startsWith('http') ? (
+                  <div className="h-8 flex items-center justify-center">
+                    <img 
+                      src={brand.logo} 
+                      alt={brand.name} 
+                      className="h-8 w-auto object-contain filter brightness-100" 
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                ) : (
+                  <span className="text-2xl">{brand.logo}</span>
+                )}
                 <span className="font-bold text-sm">{brand.name}</span>
                 <span className="text-[10px] uppercase font-mono opacity-60 tracking-wider">{brand.englishName}</span>
               </button>
@@ -131,7 +142,18 @@ export default function BrandsSection() {
               {/* Left Info: description */}
               <div className="lg:col-span-7 space-y-6">
                 <div className="flex items-center gap-3">
-                  <span className="text-4xl">{activeBrand.logo}</span>
+                  {activeBrand.logo.startsWith('http') ? (
+                    <div className="h-12 w-20 flex items-center justify-center bg-slate-900/60 p-2 rounded-lg border border-slate-800">
+                      <img 
+                        src={activeBrand.logo} 
+                        alt={activeBrand.name} 
+                        className="h-full w-full object-contain" 
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                  ) : (
+                    <span className="text-4xl">{activeBrand.logo}</span>
+                  )}
                   <div>
                     <h3 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-2">
                       {activeBrand.name} <span className="text-sm font-mono text-slate-500 font-normal">({activeBrand.englishName})</span>

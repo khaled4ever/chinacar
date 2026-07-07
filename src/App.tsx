@@ -14,13 +14,11 @@ import {
   Paintbrush, 
   Settings, 
   ChevronDown, 
-  MessageCircle,
-  HelpCircle
+  MessageCircle
 } from 'lucide-react';
 
 import ServicesSection from './components/ServicesSection';
 import BrandsSection from './components/BrandsSection';
-import DiagnosticChatbot from './components/DiagnosticChatbot';
 import BookingForm from './components/BookingForm';
 import ReviewSection from './components/ReviewSection';
 import FaqSection from './components/FaqSection';
@@ -29,7 +27,7 @@ import FloatingButtons from './components/FloatingButtons';
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // States to coordinate pre-filling of the booking form from chatbot or service cards
+  // States to coordinate pre-filling of the booking form from service cards
   const [preFillBrand, setPreFillBrand] = useState('');
   const [preFillModel, setPreFillModel] = useState('');
   const [preFillServiceId, setPreFillServiceId] = useState('');
@@ -68,7 +66,6 @@ export default function App() {
   const menuItems = [
     { label: 'الرئيسية', href: '#home' },
     { label: 'خدماتنا', href: '#services' },
-    { label: 'الفحص الذكي بالذكاء الاصطناعي', href: '#ai-diagnostics' },
     { label: 'العلامات التخصصية', href: '#brands' },
     { label: 'حجز موعد', href: '#booking' },
     { label: 'آراء العملاء', href: '#reviews' },
@@ -159,19 +156,28 @@ export default function App() {
       </header>
 
       {/* HERO SECTION */}
-      <section id="home" className="relative py-24 md:py-32 overflow-hidden bg-slate-950 border-b border-slate-900">
-        {/* Background Image with advanced overlays */}
-        <div className="absolute inset-0 z-0">
+      <section id="home" className="relative pt-24 pb-16 md:py-32 overflow-hidden bg-slate-950 border-b border-slate-900">
+        {/* On Desktop: Background Image without overlays or opacity reduction */}
+        <div className="absolute inset-0 z-0 hidden lg:block">
           <img 
-            src="/src/assets/images/workshop_hero_1783345604221.jpg" 
-            alt="Elite Workshop Hero" 
-            className="w-full h-full object-cover opacity-25 object-center scale-105"
+            src="https://i.postimg.cc/hjYwkznZ/Gemini-Generated-Image-o41yauo41yauo41y.png" 
+            alt="Elite Workshop Hero Banner" 
+            className="w-full h-full object-cover opacity-100 object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950" />
-          <div className="absolute top-0 right-0 w-96 h-96 bg-red-600/5 rounded-full filter blur-3xl pointer-events-none" />
         </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* On Mobile: A beautifully contained header banner card within the screen margins */}
+          <div className="block lg:hidden col-span-1 w-full mb-4">
+            <div className="rounded-2xl overflow-hidden border border-slate-800 shadow-2xl">
+              <img 
+                src="https://i.postimg.cc/hjYwkznZ/Gemini-Generated-Image-o41yauo41yauo41y.png" 
+                alt="Elite Workshop Hero Banner Mobile" 
+                className="w-full h-auto object-cover aspect-[16/9]"
+              />
+            </div>
+          </div>
+
           {/* Hero Text Contents */}
           <div className="lg:col-span-7 space-y-6 text-right">
             <motion.div
@@ -242,11 +248,10 @@ export default function App() {
                 حجز موعد صيانة الآن
               </a>
               <a
-                href="#ai-diagnostics"
+                href="#services"
                 className="bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-slate-750 text-white font-bold text-xs py-4 px-8 rounded-xl text-center transition flex items-center justify-center gap-2"
               >
-                <Cpu className="w-4 h-4 text-red-500 animate-spin" />
-                افحص سيارتك بالذكاء الاصطناعي
+                استكشف خدماتنا الصيانة
               </a>
             </motion.div>
           </div>
@@ -304,9 +309,6 @@ export default function App() {
       {/* CORE SECTIONS */}
       <ServicesSection onSelectService={handleSelectServiceFromCard} />
       
-      {/* GEMINI AI DIAGNOSTICS */}
-      <DiagnosticChatbot onPreFillBooking={handlePreFillBooking} />
-
       <BrandsSection />
 
       {/* INTERACTIVE BOOKING FORM */}
@@ -379,41 +381,16 @@ export default function App() {
                 <div className="absolute top-0 left-0 w-32 h-32 bg-red-600/5 rounded-full filter blur-xl pointer-events-none" />
                 <h3 className="text-white font-bold text-base mb-4">خرائط جوجل المباشرة</h3>
                 
-                {/* Mock Map canvas with styled lines representing a city route */}
-                <div className="w-full h-64 bg-slate-950 border border-slate-800 rounded-xl relative overflow-hidden flex items-center justify-center">
-                  {/* Decorative background grid of roads */}
-                  <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]" />
-                  <div className="absolute w-full h-0.5 bg-slate-800 top-1/3" />
-                  <div className="absolute w-full h-0.5 bg-slate-800 top-2/3" />
-                  <div className="absolute h-full w-0.5 bg-slate-800 right-1/4" />
-                  <div className="absolute h-full w-0.5 bg-slate-800 right-2/4" />
-                  
-                  {/* Styled Route line */}
-                  <div className="absolute w-1/2 h-1 bg-gradient-to-l from-red-600 to-red-400 right-1/4 top-1/3 rounded-full" />
-                  <div className="absolute h-1/3 w-1 bg-gradient-to-t from-red-600 to-red-400 right-2/4 top-1/3 rounded-full" />
-                  
-                  {/* Pulse of location */}
-                  <div className="absolute right-2/4 top-1/3 -translate-x-1/2 -translate-y-1/2 z-10">
-                    <span className="flex h-5 w-5 relative">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-5 w-5 bg-red-600 border-2 border-white items-center justify-center">
-                        <Wrench className="w-2.5 h-2.5 text-white" />
-                      </span>
-                    </span>
-                  </div>
-
-                  <div className="absolute text-center bg-slate-900/90 border border-slate-800 p-4 rounded-xl max-w-xs">
-                    <p className="text-xs font-bold text-white">مركز الرشود لصيانة السيارات الصينية</p>
-                    <p className="text-[10px] text-slate-400 mt-1">صناعية الشمال - حي الياسمين - الرياض</p>
-                    <a
-                      href="https://maps.google.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-red-600 hover:bg-red-700 text-white font-bold text-[10px] px-3 py-1.5 rounded mt-3 inline-block transition cursor-pointer"
-                    >
-                      افتح الموقع في خرائط جوجل 🧭
-                    </a>
-                  </div>
+                {/* Real Google Maps iframe embed */}
+                <div className="w-full h-80 bg-slate-950 border border-slate-800 rounded-xl overflow-hidden relative">
+                  <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7249.426100002043!2d46.6525098370223!3d24.70238905922027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f1d13382fa7e1%3A0x4e4bedf407f8039f!2z2YXYsdmD2LIg2K7Yp9mE2K8g2KfZhNix2LTZiNivINmE2YTYs9mF2YPYsdipINmI2K_Zh9in2YYg2KfZhNiz2YrYp9ix2KfYqg!5e0!3m2!1sen!2ssa!4v1783404320979!5m2!1sen!2ssa" 
+                    className="w-full h-full border-0" 
+                    allowFullScreen={true} 
+                    loading="lazy" 
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    title="موقع مركز الرشود على خرائط جوجل"
+                  ></iframe>
                 </div>
               </div>
             </div>
@@ -440,9 +417,9 @@ export default function App() {
           {/* Quick scroll links */}
           <div className="md:col-span-4 grid grid-cols-2 gap-2">
             <a href="#services" className="hover:text-red-500 transition-colors">أقسام الصيانة</a>
-            <a href="#ai-diagnostics" className="hover:text-red-500 transition-colors">مستشار الأعطال الذكي</a>
             <a href="#brands" className="hover:text-red-500 transition-colors">العلامات المدعومة</a>
             <a href="#booking" className="hover:text-red-500 transition-colors">جدولة موعد صيانة</a>
+            <a href="#reviews" className="hover:text-red-500 transition-colors">آراء العملاء</a>
           </div>
 
           {/* Copyrights */}

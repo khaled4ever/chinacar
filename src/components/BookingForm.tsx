@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Calendar, Clock, User, Phone, Car, FileText, CheckCircle2, Trash2, ShieldCheck, Ticket } from 'lucide-react';
+import { Calendar, Clock, User, Phone, Car, FileText, CheckCircle2, Trash2, ShieldCheck, Ticket, MessageCircle } from 'lucide-react';
 import { Booking } from '../types';
 
 interface BookingFormProps {
@@ -99,6 +99,34 @@ export default function BookingForm({
     localStorage.setItem('rashood_workshop_bookings', JSON.stringify(updatedBookings));
     
     setSuccessBooking(newBooking);
+
+    // Fire Google Ads Conversion Event
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'conversion', {
+        'send_to': 'AW-18303591488/Qch9COKT1MscEMDI6pdE',
+        'transaction_id': newBooking.id
+      });
+    }
+
+    // Auto-open WhatsApp message with booking details from client device
+    const serviceName = services.find(s => s.id === newBooking.serviceId)?.name || newBooking.serviceId;
+    const msg = `السلام عليكم ورحمة الله وبركاته،
+أود تأكيد حجز موعد صيانة في مركز الرشود للسيارات الصينية.
+
+تفاصيل الحجز:
+- رقم الحجز: ${newBooking.id}
+- الاسم: ${clientName}
+- الجوال: ${clientPhone}
+- السيارة: ${carBrand} ${carModel || "عام"}
+- الخدمة المطلوبة: ${serviceName}
+- التاريخ المفضل: ${bookingDate}
+- الوقت المفضل: ${bookingTime}
+${notes ? `- ملاحظات إضافية: ${notes}` : ''}
+
+شكراً لكم.`;
+
+    const whatsappUrl = `https://wa.me/966561241984?text=${encodeURIComponent(msg)}`;
+    window.open(whatsappUrl, '_blank');
     
     // Reset form fields
     setClientName('');
@@ -186,18 +214,40 @@ export default function BookingForm({
                   </div>
                 </div>
 
-                <div className="flex gap-4 justify-center">
+                <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                  <a
+                    href={`https://wa.me/966561241984?text=${encodeURIComponent(`السلام عليكم ورحمة الله وبركاته،
+أود تأكيد حجز موعد صيانة في مركز الرشود للسيارات الصينية.
+
+تفاصيل الحجز:
+- رقم الحجز: ${successBooking.id}
+- الاسم: ${successBooking.clientName}
+- الجوال: ${successBooking.clientPhone}
+- السيارة: ${successBooking.carBrand} ${successBooking.carModel || "عام"}
+- الخدمة المطلوبة: ${services.find(s => s.id === successBooking.serviceId)?.name || successBooking.serviceId}
+- التاريخ المفضل: ${successBooking.bookingDate}
+- الوقت المفضل: ${successBooking.bookingTime}
+${successBooking.notes ? `- ملاحظات إضافية: ${successBooking.notes}` : ''}
+
+شكراً لكم.`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold text-xs px-5 py-2.5 rounded-lg transition flex items-center justify-center gap-2 shadow-md shadow-green-600/10 cursor-pointer"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    إرسال التفاصيل عبر الواتساب
+                  </a>
                   <button
                     onClick={() => setSuccessBooking(null)}
-                    className="bg-slate-900 hover:bg-slate-800 border border-slate-850 text-white font-bold text-xs px-5 py-2.5 rounded-lg transition"
+                    className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 border border-slate-850 text-white font-bold text-xs px-5 py-2.5 rounded-lg transition cursor-pointer"
                   >
                     حجز موعد آخر
                   </button>
                   <a
                     href="#active-bookings"
-                    className="bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-5 py-2.5 rounded-lg transition"
+                    className="w-full sm:w-auto bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-500/20 font-bold text-xs px-5 py-2.5 rounded-lg transition text-center"
                   >
-                    عرض حجوزاتي المجدولة
+                    عرض حجوزاتي
                   </a>
                 </div>
               </motion.div>
