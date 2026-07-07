@@ -94,15 +94,15 @@ export default function BrandsSection() {
           </p>
         </div>
 
-        {/* Brand selection grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 mb-10">
+        {/* Brand selection grid/scroll */}
+        <div className="flex overflow-x-auto lg:grid lg:grid-cols-8 gap-3 sm:gap-4 mb-10 pb-4 -mx-6 px-6 lg:mx-0 lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] snap-x snap-mandatory">
           {brands.map((brand) => {
             const isActive = brand.id === activeBrandId;
             return (
               <button
                 key={brand.id}
                 onClick={() => setActiveBrandId(brand.id)}
-                className={`py-5 px-4 rounded-xl border transition-all duration-300 flex flex-col items-center justify-center gap-2 cursor-pointer ${
+                className={`py-4 px-3 sm:py-5 sm:px-4 rounded-xl border transition-all duration-300 flex flex-col items-center justify-center gap-2 cursor-pointer shrink-0 w-[120px] sm:w-auto snap-center ${
                   isActive 
                     ? 'bg-red-600/15 border-red-500 text-white shadow-lg shadow-red-600/5' 
                     : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'

@@ -211,26 +211,26 @@ export default function App() {
 
             {/* Bullet features */}
             <motion.div 
-              className="grid grid-cols-2 gap-4 text-xs font-bold text-slate-300 pt-2"
+              className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3 text-[11px] sm:text-xs font-bold text-slate-300 pt-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              <div className="flex items-center gap-2 bg-slate-900/40 border border-slate-800/60 p-3 rounded-xl">
-                <Cpu className="w-4 h-4 text-red-500" />
-                <span>فحص كمبيوتر وبرمجة قير</span>
+              <div className="flex items-center gap-2 bg-slate-900/40 border border-slate-800/60 p-2.5 sm:p-3 rounded-xl">
+                <Cpu className="w-4 h-4 text-red-500 shrink-0" />
+                <span className="leading-snug">فحص كمبيوتر وبرمجة قير</span>
               </div>
-              <div className="flex items-center gap-2 bg-slate-900/40 border border-slate-800/60 p-3 rounded-xl">
-                <Zap className="w-4 h-4 text-yellow-500" />
-                <span>كهرباء وضفائر دقيقة</span>
+              <div className="flex items-center gap-2 bg-slate-900/40 border border-slate-800/60 p-2.5 sm:p-3 rounded-xl">
+                <Zap className="w-4 h-4 text-yellow-500 shrink-0" />
+                <span className="leading-snug">كهرباء وضفائر دقيقة</span>
               </div>
-              <div className="flex items-center gap-2 bg-slate-900/40 border border-slate-800/60 p-3 rounded-xl">
-                <Settings className="w-4 h-4 text-blue-500" />
-                <span>ميكانيكا وتوضيب محركات</span>
+              <div className="flex items-center gap-2 bg-slate-900/40 border border-slate-800/60 p-2.5 sm:p-3 rounded-xl">
+                <Settings className="w-4 h-4 text-blue-500 shrink-0" />
+                <span className="leading-snug">ميكانيكا وتوضيب محركات</span>
               </div>
-              <div className="flex items-center gap-2 bg-slate-900/40 border border-slate-800/60 p-3 rounded-xl">
-                <Paintbrush className="w-4 h-4 text-purple-500" />
-                <span>سمكرة تعديل PDR ودهان فرن</span>
+              <div className="flex items-center gap-2 bg-slate-900/40 border border-slate-800/60 p-2.5 sm:p-3 rounded-xl">
+                <Paintbrush className="w-4 h-4 text-purple-500 shrink-0" />
+                <span className="leading-snug">سمكرة تعديل PDR ودهان فرن</span>
               </div>
             </motion.div>
 
