@@ -242,16 +242,20 @@ export default function App() {
               transition={{ delay: 0.5 }}
             >
               <a
-                href="#booking"
-                className="bg-red-600 hover:bg-red-700 text-white font-bold text-xs py-4 px-8 rounded-xl text-center transition shadow-lg shadow-red-600/10 hover:shadow-red-600/20 cursor-pointer"
+                href="tel:0561241984"
+                className="bg-red-600 hover:bg-red-700 text-white font-bold text-xs py-4 px-8 rounded-xl text-center transition shadow-lg shadow-red-600/10 hover:shadow-red-600/20 cursor-pointer flex items-center justify-center gap-2"
               >
-                حجز موعد صيانة الآن
+                <Phone className="w-4 h-4" />
+                <span>اتصل بنا الآن هاتفياً</span>
               </a>
               <a
-                href="#services"
-                className="bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-slate-750 text-white font-bold text-xs py-4 px-8 rounded-xl text-center transition flex items-center justify-center gap-2"
+                href={`https://wa.me/966561241984?text=${encodeURIComponent("مرحباً، أود حجز موعد لصيانة سيارتي الصينية.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs py-4 px-8 rounded-xl text-center transition shadow-lg shadow-green-500/10 hover:shadow-green-500/20 cursor-pointer flex items-center justify-center gap-2"
               >
-                استكشف خدماتنا الصيانة
+                <MessageCircle className="w-4 h-4" />
+                <span>تواصل معنا عبر واتساب</span>
               </a>
             </motion.div>
           </div>

@@ -2,9 +2,10 @@ import { Phone, MessageCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export default function FloatingButtons() {
-  const phoneNumber = "+966561241984"; // Actual phone number
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent("مرحباً، أود حجز موعد لصيانة سيارتي الصينية.")}`;
-  const telUrl = `tel:${phoneNumber}`;
+  const whatsappNumber = "966561241984"; // WhatsApp needs international format (without +)
+  const dialNumber = "0561241984"; // Local format for direct calls
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("مرحباً، أود حجز موعد لصيانة سيارتي الصينية.")}`;
+  const telUrl = `tel:${dialNumber}`;
 
   return (
     <div className="fixed bottom-6 left-6 z-50 flex flex-col gap-4 pointer-events-none">
